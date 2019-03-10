@@ -23,3 +23,4 @@ Route::get('/admin', 'AdminController@admin')
     ->middleware('is_admin')
     ->name('admin');
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::post('/profile/save', 'ProfileController@save')->name('save_profile');
