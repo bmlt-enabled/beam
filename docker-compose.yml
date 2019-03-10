@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  beam_db:
+    image: mysql:5.5
+    restart: always
+    ports:
+      - 8106:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: beam_root_password
+      MYSQL_DATABASE: beam
+      MYSQL_USER: beam_user
+      MYSQL_PASSWORD: beam_password
