@@ -10,7 +10,7 @@ class TokenController extends Controller
 {
     public function generate(Request $request, AccessToken $accessToken, ChatGrant $chatGrant)
     {
-        $appName = config('app_name');
+        $appName = config('app.name');
         $deviceId = $request->input("device");
         $identity = $request->input("identity");
 
