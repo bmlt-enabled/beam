@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ExternalApi\BmltApi;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -24,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['users'=>User::all()]);
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->service_body = isset($user->service_body_id) && $user->service_body_id > 0
+                ? BmltApi::getServiceBodyById($user->service_body_id) : "";
+        }
+        return view('home')->with('users', $users);
     }
 }

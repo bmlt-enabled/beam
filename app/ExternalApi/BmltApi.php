@@ -20,13 +20,13 @@ class BmltApi
     }
 
     private static function getServiceBodiesFromBmlt() {
-        if (isset($_SESSION['service_bodies'])) {
+        /*if (isset($_SESSION['service_bodies'])) {
             return $_SESSION['service_bodies'];
-        } else {
+        } else {*/
             $client = new GuzzleHttp\Client();
             $service_bodies = $client->get("https://bmlt.sezf.org/main_server/client_interface/json/?switcher=GetServiceBodies")->getBody();
             $_SESSION['service_bodies'] = json_encode($service_bodies);
             return $service_bodies;
-        }
+        //}
     }
 }

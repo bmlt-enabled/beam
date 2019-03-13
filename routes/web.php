@@ -24,5 +24,4 @@ Route::get('/admin', 'AdminController@admin')
     ->name('admin');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/profile/save', 'ProfileController@save')->name('save_profile');
-Route::get('/chat', 'ChatController@index')->name('chat');
 Route::post('/token', 'TokenController@generate')->name('token-generate');

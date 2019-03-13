@@ -37,6 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public $service_body;
+
     const ADMIN_TYPE = 'admin';
     const DEFAULT_TYPE = 'default';
 

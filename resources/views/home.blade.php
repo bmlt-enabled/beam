@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->info }}</td>
-                            <td>{{ \App\ExternalApi\BmltApi::getServiceBodyById($user->service_body_id)->name }}</td>
+                            <td>{{ $user->service_body->name }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
                         </tr>
