@@ -16,19 +16,25 @@
 
                     <table border="1" cellpadding="5">
                         <tr>
-                            <th>Name</th>
-                            <th>Info</th>
-                            <th>Service Body</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Info') }}</th>
+                            <th>{{ __('Service Body') }}</th>
+                            <th>{{ __('Email') }}</th>
+                            <th>{{ __('Phone') }}</th>
+                            @if (Auth::user()->isAdmin())
+                                <th>{{ __('Action') }}</th>
+                            @endif
                         </tr>
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->info }}</td>
-                            <td>{{ $user->service_body->name }}</td>
+                            <td>{{ isset($user->service_body_id) ? $user->service_body->name : "" }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
+                            @if (Auth::user()->isAdmin())
+                                <td><button class="btn btn-sm btn-dark" onclick="location.href='{{ route('admin_profile', ['id' => $user->id]) }}'">Edit</button></td>
+                            @endif
                         </tr>
                     @endforeach
                     </table>
