@@ -3,11 +3,21 @@
 namespace App\ExternalApi;
 
 use GuzzleHttp;
+use Illuminate\Support\Facades\Cache;
 
 class BmltApi
 {
+    private static function sort_on_field(&$objects, $on, $order = 'ASC')
+    {
+        usort($objects, function ($a, $b) use ($on, $order) {
+            return $order === 'DESC' ? -strcoll($a->{$on}, $b->{$on}) : strcoll($a->{$on}, $b->{$on});
+        });
+    }
+
     public static function getServiceBodies() {
-        return json_decode(self::getServiceBodiesFromBmlt());
+        $service_bodies = json_decode(self::getServiceBodiesFromBmlt());
+        self::sort_on_field($service_bodies, 'name');
+        return $service_bodies;
     }
 
     public static function getServiceBodyById($id) {
@@ -20,13 +30,13 @@ class BmltApi
     }
 
     private static function getServiceBodiesFromBmlt() {
-        /*if (isset($_SESSION['service_bodies'])) {
-            return $_SESSION['service_bodies'];
-        } else {*/
-            $client = new GuzzleHttp\Client();
-            $service_bodies = $client->get("https://bmlt.sezf.org/main_server/client_interface/json/?switcher=GetServiceBodies")->getBody();
-            $_SESSION['service_bodies'] = json_encode($service_bodies);
+        if (Cache::has('service_bodies')) {
+            return Cache::get('service_bodies');
+        } else {
+            //$client = new GuzzleHttp\Client();
+            $service_bodies = file_get_contents("https://bmlt.sezf.org/main_server/client_interface/json/?switcher=GetServiceBodies");
+            Cache::put('service_bodies', $service_bodies, 3600);
             return $service_bodies;
-        //}
+        }
     }
 }
