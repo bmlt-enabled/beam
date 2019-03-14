@@ -32,9 +32,12 @@
                             <td>{{ isset($user->service_body_id) ? $user->service_body->name : "" }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
-                            @if (Auth::user()->isAdmin())
-                                <td><button class="btn btn-sm btn-dark" onclick="location.href='{{ route('admin_profile', ['id' => $user->id]) }}'">Edit</button></td>
-                            @endif
+                            <td>
+                                <button style="display: none;">Message</button>
+                                @if (Auth::user()->isAdmin())
+                                    <button class="btn btn-sm btn-dark" onclick="location.href='{{ route('admin_profile', ['id' => $user->id]) }}'">{{ __('Edit User') }}</button>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </table>

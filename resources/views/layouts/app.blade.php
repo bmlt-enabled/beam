@@ -58,8 +58,11 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         {{ __('Profile') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('posts') }}">
+                                        {{ __('Posts') }}
+                                    </a>
                                     @if (Auth::user()->isAdmin())
-                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <a class="dropdown-item" href="{{ route('settings') }}">
                                         {{ __('Settings') }}
                                     </a>
                                     @endif

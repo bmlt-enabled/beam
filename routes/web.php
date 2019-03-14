@@ -27,3 +27,5 @@ Route::post('/profile/save', 'ProfileController@save')->name('save_profile');
 Route::post('/token', 'TokenController@generate')->name('token-generate');
 Route::get('/profile/{id}', 'ProfileController@admin')->name('admin_profile');
 Route::post('/profile/save/{id}', 'ProfileController@save_admin')->name('save_admin_profile');
+Route::get('/posts','PostController@index')->name('posts');
+Route::get('/settings','SettingsController@index')->name('settings');
