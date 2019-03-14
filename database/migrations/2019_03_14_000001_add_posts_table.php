@@ -9,24 +9,25 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddThreadTable extends Migration
+class AddPostsTable extends Migration
 {
     public function up()
     {
-        Schema::create('thread', function($table)
+        Schema::create('posts', function($table)
         {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('beam_id');
+            $table->integer('beam_id')->nullable();
             $table->text('message');
-            $table->timestamp('created_at')->nullable();
-            $table->integer('parent_id');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at')->nullable();
+            $table->integer('parent_id')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('thread');
+        Schema::dropIfExists('posts');
     }
 
 }

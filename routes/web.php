@@ -29,3 +29,4 @@ Route::get('/profile/{id}', 'ProfileController@admin')->name('admin_profile');
 Route::post('/profile/save/{id}', 'ProfileController@save_admin')->name('save_admin_profile');
 Route::get('/posts','PostController@index')->name('posts');
 Route::get('/settings','SettingsController@index')->name('settings');
+Route::post('/posts/save','PostController@save')->name('posts-save');
