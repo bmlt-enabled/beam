@@ -30,3 +30,4 @@ Route::post('/profile/save/{id}', 'ProfileController@save_admin')->name('save_ad
 Route::get('/posts','PostController@index')->name('posts');
 Route::get('/settings','SettingsController@index')->name('settings');
 Route::post('/posts/save','PostController@save')->name('posts-save');
+Route::post('/posts/comment/save/{parent_id}', 'PostController@comment')->name('posts-comment-save');

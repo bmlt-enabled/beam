@@ -24,8 +24,26 @@
                 @foreach ($posts as $post)
                 <div class="card">
                     <div class="card-header"><b>{{ App\User::findOrFail($post->user_id)->name }}</b>: {{ $post->message }} - {{ $post->created_at }}</div>
-                    <div class="card-body"></div>
-                    <div class="card-footer"></div>
+                    <div class="card-body">
+                        @foreach ($comments as $comment)
+                            @if ($post->id == $comment->parent_id)
+                                <div>
+                                    <b>{{ App\User::findOrFail($comment->user_id)->name }}</b>: {{ $comment->message }} - {{ $comment->created_at }}
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="card-footer">
+                        <form method="post" action="{{ route('posts-comment-save', ['parent_id'=>$post->id]) }}" class="form-group" id="commentsForm">
+                            @csrf
+                            <div class="form-row">
+                                <textarea name="message" style="width: 100%; height: 25px;"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <button type="submit" class="btn btn-sm btn-primary">Comment</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 @endforeach
             </div>

@@ -9,8 +9,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all()->sortByDesc('created_at');
-        return view('posts')->with('posts', $posts);
+        $posts = Post::all()->where('parent_id', null)->sortByDesc('created_at');
+        $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
+        return view('posts', ['posts' => $posts, 'comments' => $comments]);
     }
 
     public function save(Request $request)
@@ -29,8 +30,8 @@ class PostController extends Controller
         Post::create([
             'user_id' => $request->user()->id,
             'message'=> request('message'),
+            'parent_id' => intval(request('parent_id')),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
-            'parent_id' => request('parent_id')
         ]);
 
         return redirect('posts');
