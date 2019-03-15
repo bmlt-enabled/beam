@@ -39,7 +39,7 @@
                             <div class="form-row">
                                 <textarea name="message" style="width: 100%; height: 25px;"></textarea>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row float-right" style="margin-top: 10px;">
                                 <button type="submit" class="btn btn-sm btn-primary">Comment</button>
                             </div>
                         </form>
