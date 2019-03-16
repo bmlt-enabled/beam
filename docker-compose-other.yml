@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  beam_other:
+    build: .
+    restart: always
+    ports:
+      - 8101:8101
+    volumes:
+      - .:/var/www/html/
+    environment:
+      ENVIRONMENT: dev
+      DB_PORT: 3306
+      DB_HOST: beam_db_other
+    links:
+      - beam_db_other
+  beam_db_other:
+    image: mysql:5.5
+    restart: always
+    ports:
+      - 8107:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: beam_root_password
+      MYSQL_DATABASE: beam
+      MYSQL_USER: beam_user
+      MYSQL_PASSWORD: beam_password
