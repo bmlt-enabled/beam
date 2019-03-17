@@ -33,8 +33,8 @@ class BmltApi
         if (Cache::has('service_bodies')) {
             return Cache::get('service_bodies');
         } else {
-            //$client = new GuzzleHttp\Client();
-            $service_bodies = file_get_contents("https://bmlt.sezf.org/main_server/client_interface/json/?switcher=GetServiceBodies");
+            $client = new GuzzleHttp\Client();
+            $service_bodies = file_get_contents(config('app.bmlt_root_server') . '/client_interface/json/?switcher=GetServiceBodies');
             Cache::put('service_bodies', $service_bodies, 3600);
             return $service_bodies;
         }

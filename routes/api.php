@@ -17,8 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users/list', function (Request $request) {
-    return User::all();
+Route::get('/users/list', function () {
+    return response()->json([
+        'users' => User::all(),
+        'service_bodies' => \App\ExternalApi\BmltApi::getServiceBodies()
+    ]);
 });
 
 Route::post('/xposts/{beam_id}/save', 'XpostController@save')->name('xposts-save');

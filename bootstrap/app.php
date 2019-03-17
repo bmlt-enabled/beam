@@ -11,6 +11,8 @@
 |
 */
 
+use Dotenv\Dotenv;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -51,5 +53,11 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+
+if (getenv('ENV_FILE') == null || getenv('ENV_FILE') === 'local') {
+    $app->loadEnvironmentFrom('.env');
+} else {
+    $app->loadEnvironmentFrom('.env.' . getenv('ENV_FILE'));
+}
 
 return $app;

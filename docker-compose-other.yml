@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/app
     environment:
-      ENVIRONMENT: dev
+      ENV_FILE: docker
       DB_PORT: 3306
       DB_HOST: beam_db_other
     links:

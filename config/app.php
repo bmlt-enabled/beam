@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'beam'),
+    'bmlt_root_server' => env('BMLT_ROOT_SERVER'),
 
     /*
     |--------------------------------------------------------------------------
