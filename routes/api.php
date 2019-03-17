@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/users/list', function (Request $request) {
     return User::all();
 });
+
+Route::post('/xposts/{beam_id}/save', 'XpostController@save')->name('xposts-save');
+Route::post('/xposts/{beam_id}/comment/save/{parent_id}', 'XPostController@comment')->name('xposts-comment-save');

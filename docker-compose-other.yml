@@ -7,7 +7,7 @@ services:
     ports:
       - 8101:8101
     volumes:
-      - .:/var/www/html/
+      - .:/app
     environment:
       ENVIRONMENT: dev
       DB_PORT: 3306

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beam;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -21,6 +22,19 @@ class PostController extends Controller
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
+
+        $beams = Beam::all();
+        $client = new \GuzzleHttp\Client();
+
+        foreach ($beams as $beam) {
+            $response = $client->request('POST', $beam->url . '/api/xposts/1/save', [
+                'form_params' => [
+                    'user_id' => $request->user()->id,
+                    'message' => request('message'),
+                    'beam_id' => $beam->id,
+                 ]
+            ]);
+        }
 
         return redirect('posts');
     }
