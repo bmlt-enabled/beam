@@ -47,11 +47,9 @@
                             <td>{{ isset($user->service_body_id) ? $user->service_body->name : "" }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
-                            @if (Auth::user()->isAdmin())
-                                <td>
-
-                                </td>
-                            @endif
+                            <td>
+                                {{ $user->beam->name }}
+                            </td>
                         </tr>
                     @endforeach
                     </table>

@@ -23,7 +23,7 @@
 
                 @foreach ($posts as $post)
                 <div class="card">
-                    <div class="card-header"><b>{{ App\User::findOrFail($post->user_id)->name }}</b>: {{ $post->message }} - {{ $post->created_at }}</div>
+                    <div class="card-header"><b>{{ isset($post->beam_id) ? '[beamed]' : App\User::findOrFail($post->user_id)->name }}</b>: {{ $post->message }} - {{ $post->created_at }}</div>
                     <div class="card-body">
                         @foreach ($comments as $comment)
                             @if ($post->id == $comment->parent_id)

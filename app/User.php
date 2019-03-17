@@ -38,6 +38,7 @@ class User extends Authenticatable
     ];
 
     public $service_body;
+    public $beam;
 
     const ADMIN_TYPE = 'admin';
     const DEFAULT_TYPE = 'default';

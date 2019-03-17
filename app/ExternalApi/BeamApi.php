@@ -26,7 +26,11 @@ class BeamApi
             $beam_responses = [];
 
             foreach ($beams as $beam) {
-                array_push($beam_responses, $client->get($beam->url . '/api/users/list')->getBody()->getContents());
+                $beams_responses_with_ids = [
+                    'beam_responses' => $client->get($beam->url . '/api/users/list')->getBody()->getContents(),
+                    'beam' => $beam
+                ];
+                array_push($beam_responses, $beams_responses_with_ids);
             }
 
             Cache::put('beamed_users', $beam_responses, 3600);
@@ -38,7 +42,11 @@ class BeamApi
     {
         $beamed_users = [];
         foreach (self::getUsersResponseFromBeams() as $beam_response) {
-            array_push($beamed_users, json_decode($beam_response));
+            $deserialized_beam_response = json_decode($beam_response['beam_responses']);
+            foreach ($deserialized_beam_response->users as $beam_response_item) {
+                $beam_response_item->beam = $beam_response['beam'];
+            }
+            array_push($beamed_users, $deserialized_beam_response);
         }
 
         return $beamed_users;
