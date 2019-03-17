@@ -33,6 +33,6 @@ Route::get('/posts','PostController@index')->name('posts');
 Route::get('/settings','SettingsController@index')->name('settings');
 Route::post('/posts/save','PostController@save')->name('posts-save');
 Route::post('/posts/comment/save/{parent_id}', 'PostController@comment')->name('posts-comment-save');
-Route::get('/flush', function() {
-    Cache::forget('service_bodies');
+Route::get('/flush/{type}', function() {
+    Cache::forget(request('type'));
 });

@@ -34,7 +34,7 @@ class BmltApi
             return Cache::get('service_bodies');
         } else {
             $client = new GuzzleHttp\Client();
-            $service_bodies = file_get_contents(config('app.bmlt_root_server') . '/client_interface/json/?switcher=GetServiceBodies');
+            $service_bodies = $client->get(config('app.bmlt_root_server') . '/client_interface/json/?switcher=GetServiceBodies')->getBody()->getContents();
             Cache::put('service_bodies', $service_bodies, 3600);
             return $service_bodies;
         }
