@@ -52,5 +52,12 @@ class BeamApi
         return $beamed_users;
     }
 
-
+    public static function GetUserForId($beam_id, $id) {
+        $users = self::GetUsers()[0]->users;
+        foreach ($users as $user) {
+            if ($user->id == $id && $user->beam->id == $beam_id) {
+                return $user;
+            }
+        }
+    }
 }

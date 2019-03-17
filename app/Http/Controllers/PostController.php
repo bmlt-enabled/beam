@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Beam;
+use App\ExternalApi\BeamApi;
+use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -11,6 +13,17 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all()->where('parent_id', null)->sortByDesc('created_at');
+        foreach ($posts as $post) {
+            if (isset($post->beam_id))
+            {
+                $post->user = BeamApi::GetUserForId($post->beam_id, $post->user_id);
+            }
+            else
+            {
+                $post->user = User::findOrFail($post->user_id);
+            }
+        }
+
         $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
         return view('posts', ['posts' => $posts, 'comments' => $comments]);
     }
