@@ -33,7 +33,7 @@ class PostController extends Controller
 
     public function save(Request $request)
     {
-        Post::create([
+        $response = Post::create([
             'user_id' => $request->user()->id,
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
@@ -41,13 +41,15 @@ class PostController extends Controller
 
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
+        $post_id = $response->id;
 
         foreach ($beams as $beam) {
-            $response = $client->request('POST', $beam->url . '/api/xposts/1/save', [
+            $response = $client->request('POST', $beam->url . '/api/xposts/' . $beam->id . '/save', [
                 'form_params' => [
                     'user_id' => $request->user()->id,
                     'message' => request('message'),
                     'beam_id' => $beam->id,
+                    'post_id' => $post_id,
                  ]
             ]);
         }
@@ -57,12 +59,28 @@ class PostController extends Controller
 
     public function comment(Request $request)
     {
-        Post::create([
+        $response = Post::create([
             'user_id' => $request->user()->id,
             'message'=> request('message'),
             'parent_id' => intval(request('parent_id')),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
+
+        $parent_id_response = Post::query()->where(['id'=>intval(request('parent_id'))]);
+
+        $beams = Beam::all();
+        $client = new \GuzzleHttp\Client();
+
+        foreach ($beams as $beam) {
+            $response = $client->request('POST', $beam->url . '/api/xposts/' . $beam->id . '/comment/save', [
+                'form_params' => [
+                    'user_id' => $request->user()->id,
+                    'message' => request('message'),
+                    'beam_id' => $beam->id,
+                    'parent_id' => $parent_id_response->
+                ]
+            ]);
+        }
 
         return redirect('posts');
     }

@@ -24,9 +24,12 @@
                 @foreach ($posts as $post)
                 <div class="card">
                     <div class="card-header">
-                        <b>
-                           {{ $post->user->name }}
-                        </b>[{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]: {{ $post->message }} - {{ $post->created_at }}</div>
+                        <button
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            alt="test 123">{{ $post->user->name }}
+                        </button>
+                        [{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]: {{ $post->message }} - {{ $post->created_at }}</div>
                     <div class="card-body">
                         @foreach ($comments as $comment)
                             @if ($post->id == $comment->parent_id)

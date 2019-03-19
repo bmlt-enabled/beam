@@ -13,6 +13,7 @@ class XpostController extends Controller
             'beam_id' => request('beam_id'),
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
+            'beamed_post_id' => request('post_id'),
         ]);
     }
 }
