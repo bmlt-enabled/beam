@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beam;
 use App\ExternalApi\BeamApi;
+use App\ExternalApi\BmltApi;
 use App\User;
 use Illuminate\Http\Request;
 use App\Post;
@@ -17,10 +18,12 @@ class PostController extends Controller
             if (isset($post->beam_id))
             {
                 $post->user = BeamApi::GetUserForId($post->beam_id, $post->user_id);
+                $post->user->service_body = BeamApi::GetServiceBodyForId($post->user->service_body_id);
             }
             else
             {
                 $post->user = User::findOrFail($post->user_id);
+                $post->user->service_body = BmltApi::getServiceBodyById($post->user->service_body_id);
             }
         }
 

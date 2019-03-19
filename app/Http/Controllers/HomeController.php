@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = self::all();
+        $users = User::all();
         foreach ($users as $user) {
             $user->service_body = isset($user->service_body_id) && $user->service_body_id > 0
                 ? BmltApi::getServiceBodyById($user->service_body_id) : "";

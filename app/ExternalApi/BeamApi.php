@@ -60,4 +60,10 @@ class BeamApi
             }
         }
     }
+
+    public static function GetServiceBodyForId($id) {
+        foreach (json_decode(Cache::get('beamed_users')[0]['beam_responses'])->service_bodies as $service_body) {
+            if ($service_body->id == $id) return $service_body;
+        }
+    }
 }

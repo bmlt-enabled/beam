@@ -26,12 +26,12 @@
                     <div class="card-header">
                         <b>
                            {{ $post->user->name }}
-                        </b><i>[]</i>: {{ $post->message }} - {{ $post->created_at }}</div>
+                        </b>[{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]: {{ $post->message }} - {{ $post->created_at }}</div>
                     <div class="card-body">
                         @foreach ($comments as $comment)
                             @if ($post->id == $comment->parent_id)
                                 <div>
-                                    <b>{{ App\User::findOrFail($comment->user_id)->name }}</b>: {{ $comment->message }} - {{ $comment->created_at }}
+                                    <b>... {{ App\User::findOrFail($comment->user_id)->name }}</b>: {{ $comment->message }} - {{ $comment->created_at }}
                                 </div>
                             @endif
                         @endforeach
