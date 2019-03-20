@@ -28,6 +28,21 @@ class PostController extends Controller
         }
 
         $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
+        foreach ($comments as $comment) {
+            if (isset($comment->beam_id))
+            {
+                $comment->user = BeamApi::GetUserForId($comment->beam_id, $comment->user_id);
+                $comment->user->service_body = BeamApi::GetServiceBodyForId($comment->user->service_body_id);
+            }
+            else
+            {
+                $comment->user = User::findOrFail($comment->user_id);
+                $comment->user->service_body = BmltApi::getServiceBodyById($comment->user->service_body_id);
+            }
+        }
+
+
+
         return view('posts', ['posts' => $posts, 'comments' => $comments]);
     }
 
