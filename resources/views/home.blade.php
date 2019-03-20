@@ -21,9 +21,7 @@
                             <th>{{ __('Service Body') }}</th>
                             <th>{{ __('Email') }}</th>
                             <th>{{ __('Phone') }}</th>
-                            @if (Auth::user()->isAdmin())
-                                <th>{{ __('Action') }}</th>
-                            @endif
+                            <th></th>
                         </tr>
                     @foreach ($users as $user)
                         <tr>
@@ -32,12 +30,12 @@
                             <td>{{ isset($user->service_body_id) ? $user->service_body->name : "" }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
-                            @if (Auth::user()->isAdmin())
                             <td>
+                                @if (Auth::user()->isAdmin())
                                 <button style="display: none;">Message</button>
                                 <button class="btn btn-sm btn-dark" onclick="location.href='{{ route('admin_profile', ['id' => $user->id]) }}'">{{ __('Edit User') }}</button>
+                                @endif
                             </td>
-                            @endif
                         </tr>
                     @endforeach
                     @foreach ($beamed_users as $user)

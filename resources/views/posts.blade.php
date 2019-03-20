@@ -34,7 +34,7 @@
                         @foreach ($comments as $comment)
                             @if ($post->id == $comment->parent_id)
                                 <div>
-                                    <b>... {{ App\User::findOrFail($comment->user_id)->name }}</b>: {{ $comment->message }} - {{ $comment->created_at }}
+                                    <b>... {{ App\User::findOrFail($comment->user_id)->name }}</b> [{{ isset($comment->user->service_body) ? $comment->user->service_body->name : "" }}]: {{ $comment->message }} - {{ $comment->created_at }}
                                 </div>
                             @endif
                         @endforeach
