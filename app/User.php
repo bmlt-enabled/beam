@@ -53,12 +53,16 @@ class User extends Authenticatable
         $beamed_users = BeamApi::GetUsers();
         $beamed_users_with_service_bodes = [];
 
-        foreach ($beamed_users[0]->users as $beamed_user) {
-            $beamed_user->service_body = self::getBeamedServiceBodyForId($beamed_users[0]->service_bodies, $beamed_user->service_body_id);
-            array_push($beamed_users_with_service_bodes, $beamed_user);
-        }
+        if (isset($beamed_users[0])) {
+            foreach ($beamed_users[0]->users as $beamed_user) {
+                $beamed_user->service_body = self::getBeamedServiceBodyForId($beamed_users[0]->service_bodies, $beamed_user->service_body_id);
+                array_push($beamed_users_with_service_bodes, $beamed_user);
+            }
 
-        return $beamed_users_with_service_bodes;
+            return $beamed_users_with_service_bodes;
+        } else {
+            return [];
+        }
     }
 
     private static function getBeamedServiceBodyForId($service_bodies, $id) {
