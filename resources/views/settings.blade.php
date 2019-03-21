@@ -12,13 +12,15 @@
                                 <th>Name</th>
                                 <th>Url</th>
                                 <th>Public Key</th>
-                                <th>Private Key</th>
+                                <th>Self Private Key</th>
+                                <th>Beam Private Key</th>
                             </tr>
                             @foreach ($beams as $beam)
                             <tr>
                                 <td>{{ $beam->name }}</td>
                                 <td>{{ $beam->url }}</td>
                                 <td>{{ md5('red') }}</td>
+                                <td>{{ md5($beam->url) }}</td>
                                 <td>{{ md5('blue') }}</td>
                             </tr>
                             @endforeach

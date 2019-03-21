@@ -26,8 +26,8 @@
                     <div class="card-header">
                         <button
                             data-toggle="tooltip"
-                            data-placement="bottom"
-                            alt="test 123">{{ $post->user->name }}
+                            data-placement="left"
+                            title="{{ isset($post->user->info) ? $post->user->info : "Not specified" }} ">{{ $post->user->name }}
                         </button>
                         [{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]: {{ $post->message }} - {{ $post->created_at }}</div>
                     <div class="card-body">
@@ -55,4 +55,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $( document ).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection
