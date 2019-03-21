@@ -8,6 +8,7 @@ use App\ExternalApi\BmltApi;
 use App\User;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -81,10 +82,10 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
-        $parent_id_response = Post::select('beamed_post_id')->where(['id'=>intval(request('parent_id'))])->get();
-        if (isset($parent_id_response->beamed_post_id))
+        $parent_id_response = DB::table('posts')->select('beamed_post_id')->where('id',intval(request('parent_id')))->get();
+        if (isset($parent_id_response[0]->beamed_post_id))
         {
-            $parent_id = $parent_id_response->beamed_post_id;
+            $parent_id = $parent_id_response[0]->beamed_post_id;
         }
         else
         {

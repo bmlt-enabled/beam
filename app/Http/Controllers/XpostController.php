@@ -26,7 +26,7 @@ class XpostController extends Controller
             'beam_id' => request('beam_id'),
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
-            'parent_id' => $beamed_id_response[0]->id,
+            'parent_id' => isset($beamed_id_response[0]->id) ? $beamed_id_response[0]->id : request('parent_id'),
         ]);
     }
 }
