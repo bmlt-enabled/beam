@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beam;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -13,6 +14,7 @@ class SettingsController extends Controller
 
     public function index()
     {
-        return view('settings');
+        $beams = Beam::all();
+        return view('settings', ['beams'=>$beams]);
     }
 }
