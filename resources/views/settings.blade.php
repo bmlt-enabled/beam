@@ -7,6 +7,12 @@
                 <div class="card">
                     <div class="card-header">Settings</div>
 
+
+                    <div class="card-header">Cache Flush</div>
+                    <div class="card-body">
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/flush/service_bodies'">Service Bodies</button>
+                        <button class="btn btn-sm btn-danger" onclick="location.href='/flush/beamed_users'">Beamed Users</button>
+                    </div>
                 </div>
             </div>
         </div>
