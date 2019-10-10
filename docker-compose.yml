@@ -1,6 +1,19 @@
 version: '3.1'
 
 services:
+  beam:
+    build: .
+    restart: always
+    ports:
+      - 3700:8101
+    volumes:
+      - .:/app
+    environment:
+      ENVIRONMENT: dev
+      APP_ENV:
+    links:
+      - beam_db
+
   beam_db:
     image: mysql:5.5
     restart: always
