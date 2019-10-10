@@ -1,7 +1,7 @@
 beam
 ===
 
-Beam is an experimental project that would allow service bodies communicate both within and to other service bodies.  
+Beam is a self-hosted experimental project that would allow service bodies communicate both within and to other service bodies.  
 
 It also intends to serve as a source of truth for trusted servant contact information, the same principle way the BMLT handles meeting information.
 
@@ -21,7 +21,7 @@ Additional other security hardening tactics & recommendations will be added in t
 
 #### Installation (not supported on shared hosting yet, needs Travis package management)
 
-1. Upload the files your instance.
+1. Upload the zip (https://github.com/bmlt-enabled/beam/releases) your instance.
 
 2. Go to the directory and run `composer installer`.
 
