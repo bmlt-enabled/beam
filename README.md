@@ -19,9 +19,13 @@ Other communications add-ons could be developed in the future (Slack, Discord, Z
 
 Additional other security hardening tactics & recommendations will be added in the future.
 
->Installation
+#### Installation (not supported on shared hosting yet, needs Travis package management)
 
-1. Once the package has been uploaded to your instance, you will need to create a file called `.env` and put it in the root.
+1. Upload the files your instance.
+
+2. Go to the directory and run `composer installer`.
+
+3. You will need to create a file called `.env` and put it in the root.
 
 It will have the following (see the comments in line for a description)
 
@@ -29,7 +33,7 @@ It will have the following (see the comments in line for a description)
 BMLT_ROOT_SERVER=          # Your root server address, for example: https://example.org/main_server
 
 APP_ENV=production         # This does not need to change
-APP_KEY=                   # Visit this site https://generate.plus/en/base64 and generate a random base64 value and populate as "base64:value"
+APP_KEY=                   # Visit this site https://generate.plus/en/base64 (ensure the bit length is set to 32) and generate a random base64 value and populate as "base64:value"
 APP_DEBUG=false            # Used for additional debugging, leaving as false for production
 APP_URL=http://localhost   # This does not need to change
 
@@ -52,15 +56,19 @@ MAIL_FROM_ADDRESS=    # The SMTP mail from address
 MAIL_FROM_NAME=       # The SMTP mail from name
 ```
 
-2. After the file is in place you can go to:
+4. Make sure the root of you site is pointed to the `public` folder.
+
+5. After the file is in place you can go to:
 
 https://example.org/beam/utility/migrations and the database will be seeded.
 
-3. Now visit https://example.org/beam/ and click Register in the top right corner.  Create your administrator account.
+6. Now visit https://example.org/beam/ and click Register in the top right corner.  Create your administrator account.
 
-4. Go into the database and find the `users` table.  In the row with that user update the `type` field from `default` to `admin`.
+7. Go into the database and find the `users` table.  In the row with that user update the `type` field from `default` to `admin`.
 
-5. Click reload in your web browser, and now your user with be an administrator.
+8. Click reload in your web browser, and now your user with be an administrator.
+
+9. Logs are in `storage/logs` (if needed).
 
 **TODO**
 
