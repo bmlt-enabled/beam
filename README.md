@@ -19,13 +19,11 @@ Other communications add-ons could be developed in the future (Slack, Discord, Z
 
 Additional other security hardening tactics & recommendations will be added in the future.
 
-#### Installation (not supported on shared hosting yet, needs Travis package management)
+#### Installation (supported on shared hosting now)
 
 1. Upload the zip (https://github.com/bmlt-enabled/beam/releases) your instance.
 
-2. Go to the directory and run `composer installer`.
-
-3. You will need to create a file called `.env` and put it in the root.
+2. You will need to create a file called `.env` and put it in the root.
 
 It will have the following (see the comments in line for a description)
 
@@ -56,19 +54,19 @@ MAIL_FROM_ADDRESS=    # The SMTP mail from address
 MAIL_FROM_NAME=       # The SMTP mail from name
 ```
 
-4. Make sure the root of you site is pointed to the `public` folder.
+3. Make sure the root of you site is pointed to the `public` folder.
 
-5. After the file is in place you can go to:
+4. After the file is in place you can go to:
 
 https://example.org/beam/utility/migrations and the database will be seeded.
 
-6. Now visit https://example.org/beam/ and click Register in the top right corner.  Create your administrator account.
+5. Now visit https://example.org/beam/ and click Register in the top right corner.  Create your administrator account.
 
-7. Go into the database and find the `users` table.  In the row with that user update the `type` field from `default` to `admin`.
+6. Go into the database and find the `users` table.  In the row with that user update the `type` field from `default` to `admin`.
 
-8. Click reload in your web browser, and now your user with be an administrator.
+7. Click reload in your web browser, and now your user with be an administrator.
 
-9. Logs are in `storage/logs` (if needed).
+8. Logs are in `storage/logs` (if needed).
 
 **TODO**
 
