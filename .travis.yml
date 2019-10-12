@@ -12,7 +12,7 @@ jobs:
 
     - stage: zip file
       install:
-        - composer install --no-dev
+        - composer install
       env:
         - BUILD_DIR=build
         - DIST_DIR_S3=dist/s3
