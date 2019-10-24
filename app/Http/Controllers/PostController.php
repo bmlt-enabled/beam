@@ -59,11 +59,12 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
-        // TODO: get only users who want to get email notifications
-        $users = User::all();
-        Notification::send($users, new PostCreated($message,
-            sprintf('/posts#%s', $response->id),
-            sprintf('New Post: %s', substr($message, 0, 50))));
+        $users = User::where('notifications_flag', 1)->get();
+        if (isset($users)) {
+            Notification::send($users, new PostCreated($message,
+                sprintf('/posts#%s', $response->id),
+                sprintf('New Post: %s', substr($message, 0, 50))));
+        }
 
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
@@ -93,12 +94,13 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
-        // TODO: get only users who want to get email notifications
-        $users = User::all();
-        $post = Post::query()->find(intval(request('parent_id')));
-        Notification::send($users, new PostCreated($message,
-            sprintf('/posts#%s', $response->id),
-            sprintf("New Comment: %s", substr($post['message'], 0, 50))));
+        $users = User::where('notifications_flag', 1)->get();
+        if (isset($users)) {
+            $post = Post::query()->find(intval(request('parent_id')));
+            Notification::send($users, new PostCreated($message,
+                sprintf('/posts#%s', $response->id),
+                sprintf("New Comment: %s", substr($post['message'], 0, 50))));
+        }
 
         $parent_id_response = DB::table('posts')->select('beamed_post_id')->where('id',intval(request('parent_id')))->get();
         if (isset($parent_id_response[0]->beamed_post_id))
