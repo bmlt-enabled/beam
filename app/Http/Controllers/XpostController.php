@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class XpostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function save(Request $request) {
         Post::create([
             'user_id' => request('user_id'),

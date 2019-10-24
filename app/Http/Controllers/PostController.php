@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $posts = Post::all()->where('parent_id', null)->sortByDesc('created_at');
