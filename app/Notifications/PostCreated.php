@@ -13,15 +13,17 @@ class PostCreated extends Notification
 
     private $message;
     private $url;
+    private $subject;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message, $url)
+    public function __construct($message, $url, $subject)
     {
         $this->message = $message;
         $this->url = $url;
+        $this->subject = $subject;
     }
 
     /**
@@ -44,7 +46,7 @@ class PostCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(sprintf('New Post: %s', substr($this->message, 0, 50)))
+                    ->subject($this->subject)
                     ->line($this->message)
                     ->action('Read Post', url($this->url));
     }

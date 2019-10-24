@@ -52,16 +52,18 @@ class PostController extends Controller
 
     public function save(Request $request)
     {
+        $message = request('message');
         $response = Post::create([
             'user_id' => $request->user()->id,
-            'message'=> request('message'),
+            'message'=> $message,
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
         // TODO: get only users who want to get email notifications
         $users = User::all();
-        Notification::send($users, new PostCreated(request('message'),
-            sprintf('/posts#%s', $response->id)));
+        Notification::send($users, new PostCreated($message,
+            sprintf('/posts#%s', $response->id),
+            sprintf('New Post: %s', substr($message, 0, 50))));
 
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
@@ -71,7 +73,7 @@ class PostController extends Controller
             $response = $client->request('POST', $beam->url . '/api/xposts/' . $beam->id . '/save', [
                 'form_params' => [
                     'user_id' => $request->user()->id,
-                    'message' => request('message'),
+                    'message' => $message,
                     'beam_id' => $beam->id,
                     'post_id' => $post_id,
                  ]
@@ -83,12 +85,20 @@ class PostController extends Controller
 
     public function comment(Request $request)
     {
+        $message = request('message');
         $response = Post::create([
             'user_id' => $request->user()->id,
-            'message'=> request('message'),
+            'message'=> $message,
             'parent_id' => intval(request('parent_id')),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
+
+        // TODO: get only users who want to get email notifications
+        $users = User::all();
+        $post = Post::query()->find(intval(request('parent_id')));
+        Notification::send($users, new PostCreated($message,
+            sprintf('/posts#%s', $response->id),
+            sprintf("New Comment: %s", substr($post['message'], 0, 50))));
 
         $parent_id_response = DB::table('posts')->select('beamed_post_id')->where('id',intval(request('parent_id')))->get();
         if (isset($parent_id_response[0]->beamed_post_id))
@@ -107,7 +117,7 @@ class PostController extends Controller
             $response = $client->request('POST', $beam->url . '/api/xposts/' . $beam->id . '/comment/save/' . $parent_id, [
                 'form_params' => [
                     'user_id' => $request->user()->id,
-                    'message' => request('message'),
+                    'message' => $message,
                 ]
             ]);
         }
