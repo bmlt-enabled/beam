@@ -58,6 +58,9 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         {{ __('Profile') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Contacts') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('posts') }}">
                                         {{ __('Posts') }}
                                     </a>
