@@ -6,10 +6,12 @@ use App\Beam;
 use App\ExternalApi\BeamApi;
 use App\ExternalApi\BmltApi;
 use App\Notifications;
+use App\Notifications\PostCreated;
 use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -55,7 +57,10 @@ class PostController extends Controller
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
-        
+
+        $users = User::all();
+        Notification::send($users, new PostCreated(request('message'), ''));
+
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
         $post_id = $response->id;
