@@ -58,13 +58,15 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
+        // TODO: get only users who want to get email notifications
         $users = User::all();
-        Notification::send($users, new PostCreated(request('message'), ''));
+        Notification::send($users, new PostCreated(request('message'),
+            sprintf('/posts#%s', $response->id)));
 
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
         $post_id = $response->id;
-
+#
         foreach ($beams as $beam) {
             $response = $client->request('POST', $beam->url . '/api/xposts/' . $beam->id . '/save', [
                 'form_params' => [

@@ -23,6 +23,7 @@
 
                 @foreach ($posts as $post)
                 <div class="card">
+                    <a id="{{ $post->id }}"></a>
                     <div class="card-header">
                         <button
                             data-toggle="tooltip"
