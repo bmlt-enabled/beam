@@ -44,6 +44,7 @@ class PostCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject(sprintf('New Post: %s', substr($this->message, 0, 50)))
                     ->line($this->message)
                     ->action('Read Post', url($this->url));
     }
