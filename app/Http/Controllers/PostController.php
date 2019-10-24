@@ -55,13 +55,7 @@ class PostController extends Controller
             'message'=> request('message'),
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
-
-        Notifications::create([
-            'message' => request('message'),
-            'url' => 'http://localhost',
-            'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
-        ]);
-
+        
         $beams = Beam::all();
         $client = new \GuzzleHttp\Client();
         $post_id = $response->id;
