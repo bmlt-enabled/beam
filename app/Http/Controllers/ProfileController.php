@@ -46,7 +46,8 @@ class ProfileController extends Controller
             'email' => request('email'),
             'info' => request('info'),
             'phone_number' => request('phone_number'),
-            'service_body_id' => request('service_body_id')]);
+            'service_body_id' => request('service_body_id'),
+            'notifications_flag' => request('notifications_flag')]);
 
         return redirect('home');
     }
@@ -59,6 +60,7 @@ class ProfileController extends Controller
                 'info' => request('info'),
                 'phone_number' => request('phone_number'),
                 'service_body_id' => request('service_body_id'),
+                'notifications_flag' => request('notifications_flag'),
                 'type' => request('is_admin') === "1" ? 'admin' : 'default']);
         }
 

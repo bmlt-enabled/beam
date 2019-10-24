@@ -23,8 +23,12 @@
                     <td><input class="form-control" size="50" name="phone_number" type="text" value="{{ $user->phone_number }}"></td>
                 </tr>
                 <tr>
+                    <th>Email Notifications</th>
+                    <td><input class="form-control form-check" name="notifications_flag" type="checkbox" value="1" {{ $user->notifications_flag == 1 ? "checked" : "" }}></td>
+                </tr>
+                <tr>
                     <th>IsAdmin?</th>
-                    <td><input class="form-control form-check" name="is_admin" type="checkbox" value="1" {{ $user->isAdmin() ? "checked" : ""}}></td>
+                    <td><input class="form-control form-check" name="is_admin" type="checkbox" value="1" {{ $user->isAdmin() ? "checked" : "" }}></td>
                 </tr>
                 <tr>
                     <td colspan="2">
