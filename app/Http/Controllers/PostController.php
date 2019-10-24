@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beam;
 use App\ExternalApi\BeamApi;
 use App\ExternalApi\BmltApi;
+use App\Notifications;
 use App\User;
 use Illuminate\Http\Request;
 use App\Post;
@@ -52,6 +53,12 @@ class PostController extends Controller
         $response = Post::create([
             'user_id' => $request->user()->id,
             'message'=> request('message'),
+            'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
+        ]);
+
+        Notifications::create([
+            'message' => request('message'),
+            'url' => 'http://localhost',
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
