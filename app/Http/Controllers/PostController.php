@@ -98,7 +98,7 @@ class PostController extends Controller
         if (isset($users)) {
             $post = Post::query()->find(intval(request('parent_id')));
             Notification::send($users, new PostCreated($message,
-                sprintf('/posts#%s', $response->id),
+                sprintf('/posts#%s', intval(request('parent_id'))),
                 sprintf("New Comment: %s", substr($post['message'], 0, 50))));
         }
 
