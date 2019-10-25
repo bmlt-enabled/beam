@@ -47,7 +47,7 @@ class ProfileController extends Controller
             'info' => request('info'),
             'phone_number' => request('phone_number'),
             'service_body_id' => request('service_body_id'),
-            'notifications_flag' => request('notifications_flag')]);
+            'notifications_flag' => array_sum(request('notifications_flag'))]);
 
         return redirect('home');
     }
