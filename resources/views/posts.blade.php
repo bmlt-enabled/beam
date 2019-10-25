@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">New Post</div>
+                        <div class="card-header">New Post</div>
                     <form method="post" action="{{ route('posts-save') }}" class="form-group" id="postsForm">
                         @csrf
                         <div class="card-body">
@@ -15,7 +15,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-row">
-                                <button type="submit" class="btn btn-sm btn-info">Post</button>
+                                <button type="submit" class="btn btn-md btn-info">Post</button>
                             </div>
                         </div>
                     </form>
@@ -47,7 +47,7 @@
                                 <textarea name="message" style="width: 100%; height: 25px;"></textarea>
                             </div>
                             <div class="form-row float-right" style="margin-top: 10px;">
-                                <button type="submit" class="btn btn-sm btn-primary">Comment</button>
+                                <button type="submit" class="btn btn-md btn-primary">Comment</button>
                             </div>
                         </form>
                     </div>
