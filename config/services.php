@@ -15,9 +15,8 @@ return [
     */
 
     'twilio' => [
-        'accountSid' => env('TWILIO_ACCOUNT_SID'),
-        'apiKey' => env('TWILIO_API_KEY'),
-        'apiSecret' => env('TWILIO_API_SECRET'),
-        'chatServiceSid' => env('TWILIO_CHAT_SERVICE_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'), // optional when using username and password
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'from' => env('TWILIO_FROM'), // optional
     ],
 ];
