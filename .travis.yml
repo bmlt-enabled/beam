@@ -19,6 +19,7 @@ jobs:
         - DIST_DIR_GITHUB=dist/github
         - GITHUB_RELEASE_FILENAME=beam.zip
       script:
+        - find ./ -path ./vendor -prune -o -type d | xargs chmod 755 && find ./ -name '*.php' | xargs chmod 644
         - zip -r $ZIP_FILENAME ./ -x "*.git*" -x "*.editorconfig*" -x "*.travis.yml*" -x "composer.*" -x "*.gitattributes" && mkdir $BUILD_DIR && mv $ZIP_FILENAME $BUILD_DIR/
       before_deploy:
         - mkdir -p $DIST_DIR_S3 && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_S3/$ZIP_FILENAME
