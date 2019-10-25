@@ -66,9 +66,10 @@ class PostController extends Controller
 
         $users = User::where('notifications_flag', 1)->get();
         if (isset($users)) {
-            Notification::send($users, new PostCreated($message,
+            Notification::send($users, new PostCreated(
+                sprintf('%s: %s', $request->user()->name, $message),
                 sprintf('/posts#%s', $response->id),
-                sprintf('New Post: %s', substr($message, 0, 50))));
+                sprintf('%s', substr($message, 0, 50))));
         }
 
         $beams = Beam::all();
@@ -102,9 +103,10 @@ class PostController extends Controller
         $users = User::where('notifications_flag', 1)->get();
         if (isset($users)) {
             $post = Post::query()->find(intval(request('parent_id')));
-            Notification::send($users, new PostCreated($message,
+            Notification::send($users, new PostCreated(
+                sprintf('%s: %s', $request->user()->name, $post['message']),
                 sprintf('/posts#%s', intval(request('parent_id'))),
-                sprintf("New Comment: %s", substr($post['message'], 0, 50))));
+                sprintf('%s', substr($post['message'], 0, 50))));
         }
 
         $parent_id_response = DB::table('posts')->select('beamed_post_id')->where('id',intval(request('parent_id')))->get();
