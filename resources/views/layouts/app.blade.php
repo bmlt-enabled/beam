@@ -89,6 +89,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <div align="center">v{{ config('app.version') }}</div>
     </div>
 </body>
 </html>
