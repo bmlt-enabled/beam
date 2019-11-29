@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PostCreated extends Notification
+class PostCreatedEmail extends Notification
 {
     use Queueable;
 

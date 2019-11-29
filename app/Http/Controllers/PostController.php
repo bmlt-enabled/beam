@@ -6,7 +6,8 @@ use App\Beam;
 use App\ExternalApi\BeamApi;
 use App\ExternalApi\BmltApi;
 use App\Notifications;
-use App\Notifications\PostCreated;
+use App\Notifications\PostCreatedEmail;
+use App\NotificationTypes;
 use App\User;
 use Illuminate\Http\Request;
 use App\Post;
@@ -64,9 +65,9 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
-        $users = User::where('notifications_flag', 1)->get();
+        $users = User::whereRaw(sprintf('notifications_flag & %s = 1', NotificationTypes::$EMAIL))->get();
         if (isset($users)) {
-            Notification::send($users, new PostCreated(
+            Notification::send($users, new PostCreatedEmail(
                 sprintf('%s: %s', $request->user()->name, $message),
                 sprintf('/posts#%s', $response->id),
                 sprintf('%s', substr($message, 0, 50))));
@@ -100,10 +101,10 @@ class PostController extends Controller
             'created_at' => gmdate("Y-m-d\TH:i:s\Z"),
         ]);
 
-        $users = User::where('notifications_flag', 1)->get();
+        $users = User::whereRaw(sprintf('notifications_flag & %s = 1', NotificationTypes::$EMAIL))->get();
         if (isset($users)) {
             $post = Post::query()->find(intval(request('parent_id')));
-            Notification::send($users, new PostCreated(
+            Notification::send($users, new PostCreatedEmail(
                 sprintf('%s: %s', $request->user()->name, $message),
                 sprintf('/posts#%s', intval(request('parent_id'))),
                 sprintf('%s', substr($post['message'], 0, 50))));
