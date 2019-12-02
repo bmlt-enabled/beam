@@ -22,7 +22,7 @@
                 </div>
 
                 @foreach ($posts as $post)
-                <div class="card">
+                <div class="card post">
                     <a id="{{ $post->id }}"></a>
                     <div class="card-header">
                         <p>{{ $post->created_at }}: <b>{{ $post->user->name }}</b> [{{ isset($post->user->info) ? $post->user->info . ", " : "" }}{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]</p>
