@@ -61,7 +61,7 @@ class PostController extends Controller
 
     public function save(Request $request)
     {
-        $message = request('message');
+        $message = strip_tags(request('message'));
         $response = Post::create([
             'user_id' => $request->user()->id,
             'message'=> $message,
@@ -96,7 +96,7 @@ class PostController extends Controller
 
     public function comment(Request $request)
     {
-        $message = request('message');
+        $message = strip_tags(request('message'));
         $response = Post::create([
             'user_id' => $request->user()->id,
             'message'=> $message,
