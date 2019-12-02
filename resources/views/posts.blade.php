@@ -26,7 +26,7 @@
                     <a id="{{ $post->id }}"></a>
                     <div class="card-header">
                         <p>{{ $post->created_at }}: <b>{{ $post->user->name }}</b> [{{ isset($post->user->info) ? $post->user->info . ", " : "" }}{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]</p>
-                        <p>{!!html_entity_decode($post->message)!!} - </p>
+                        <p>{!!html_entity_decode($post->message)!!}</p>
                     </div>
                     <div class="card-body">
                         @foreach ($comments as $comment)

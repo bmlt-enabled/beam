@@ -35,7 +35,7 @@ class PostController extends Controller
                 $post->user->service_body = BmltApi::getServiceBodyById($post->user->service_body_id);
             }
 
-            $post->message = str_replace("\n", "<br/>", $post->message);
+            $post->message = $this->makeLinks(str_replace("\n", "<br/>", $post->message));
         }
 
         $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
@@ -51,7 +51,7 @@ class PostController extends Controller
                 $comment->user->service_body = BmltApi::getServiceBodyById($comment->user->service_body_id);
             }
 
-            $comment->message = str_replace("\n", "<br/>", $comment->message);
+            $comment->message = $this->makeLinks(str_replace("\n", "<br/>", $comment->message));
         }
 
 
@@ -136,5 +136,38 @@ class PostController extends Controller
         }
 
         return redirect('posts');
+    }
+
+    private function makeLinks($str) {
+        $reg_exUrl = "/(((http)+(s){0,1}|(ftp)(s){0,1}|mms)[:]{0,1}[\/]*){0,1}[a-z0-9\-]+[\.][a-z0-9\-]+[\.]{0,1}[a-z]{0,3}[\.]{0,1}[a-z]{0,2}([\/\\\\\\\\]+[a-z0-9%\-\_\.\?\&\=\|]*)*/i";
+        $urls = array();
+        $urlsToReplace = array();
+        if (preg_match_all($reg_exUrl, $str, $urls)) {
+            $numOfMatches = count($urls[0]);
+            $numOfUrlsToReplace = 0;
+            for ($i = 0; $i < $numOfMatches; $i++) {
+                $alreadyAdded = false;
+                $numOfUrlsToReplace = count($urlsToReplace);
+                for ($j = 0; $j < $numOfUrlsToReplace; $j++) {
+                    if($urlsToReplace[$j] == $urls[0][$i]) {
+                        $alreadyAdded = true;
+                    }
+                }
+
+                if (!$alreadyAdded) {
+                    array_push($urlsToReplace, $urls[0][$i]);
+                }
+            }
+
+            $numOfUrlsToReplace = count($urlsToReplace);
+
+            for ($i = 0; $i < $numOfUrlsToReplace; $i++) {
+                $str = str_replace($urlsToReplace[$i], "<a href=\"".$urlsToReplace[$i]."\" target=\"_blank\">".$urlsToReplace[$i]."</a>", $str);
+            }
+
+            return $str;
+        } else {
+            return $str;
+        }
     }
 }
