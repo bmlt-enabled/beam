@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Beam;
 use App\ExternalApi\BeamApi;
 use App\ExternalApi\BmltApi;
-use App\Notifications;
 use App\Notifications\PostCreatedEmail;
 use App\NotificationTypes;
 use App\User;
@@ -35,6 +34,8 @@ class PostController extends Controller
                 $post->user = User::findOrFail($post->user_id);
                 $post->user->service_body = BmltApi::getServiceBodyById($post->user->service_body_id);
             }
+
+            $post->message = str_replace("\n", "<br/>", $post->message);
         }
 
         $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
@@ -49,6 +50,8 @@ class PostController extends Controller
                 $comment->user = User::findOrFail($comment->user_id);
                 $comment->user->service_body = BmltApi::getServiceBodyById($comment->user->service_body_id);
             }
+
+            $comment->message = str_replace("\n", "<br/>", $comment->message);
         }
 
 

@@ -25,17 +25,15 @@
                 <div class="card">
                     <a id="{{ $post->id }}"></a>
                     <div class="card-header">
-                        <button
-                            data-toggle="tooltip"
-                            data-placement="left"
-                            title="{{ isset($post->user->info) ? $post->user->info : "Not specified" }} ">{{ $post->user->name }}
-                        </button>
-                        [{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]: {{ $post->message }} - {{ $post->created_at }}</div>
+                        <p>{{ $post->created_at }}: <b>{{ $post->user->name }}</b> [{{ isset($post->user->info) ? $post->user->info . ", " : "" }}{{ isset($post->user->service_body) ? $post->user->service_body->name : "" }}]</p>
+                        <p>{!!html_entity_decode($post->message)!!} - </p>
+                    </div>
                     <div class="card-body">
                         @foreach ($comments as $comment)
                             @if ($post->id == $comment->parent_id)
                                 <div>
-                                    <b>... {{ App\User::findOrFail($comment->user_id)->name }}</b> [{{ isset($comment->user->service_body) ? $comment->user->service_body->name : "" }}]: {{ $comment->message }} - {{ $comment->created_at }}
+                                    <p>{{ $comment->created_at }}: <b>{{ App\User::findOrFail($comment->user_id)->name }}</b> [{{ isset($comment->user->info) ? $comment->user->info . ", " : "" }}{{ isset($comment->user->service_body) ? $comment->user->service_body->name : "" }}]</p>
+                                    <p>{!!html_entity_decode($comment->message)!!}</p>
                                 </div>
                             @endif
                         @endforeach
