@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->info }}</td>
-                            <td>{{ isset($user->service_body_id) && isset($user->service_body_id->name) ? $user->service_body->name : "" }}</td>
+                            <td>{{ isset($user->service_body) && isset($user->service_body->name) ? $user->service_body->name : "" }}</td>
                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->phone_number }}</td>
                             <td>
