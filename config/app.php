@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-    'version' => '0.0.10',
+    'version' => '0.0.12',
     'name' => env('APP_NAME', 'beam'),
     'bmlt_root_server' => env('BMLT_ROOT_SERVER'),
 
