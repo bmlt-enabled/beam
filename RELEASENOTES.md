@@ -1,5 +1,8 @@
 # Release Notes
 
+### 0.1.3
+* Adding missing <div/> for post highlighting.
+
 ### 0.1.2
 * Highlight deep linked post on page anchor.
 
