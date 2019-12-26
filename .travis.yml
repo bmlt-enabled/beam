@@ -20,6 +20,7 @@ jobs:
         - GITHUB_RELEASE_FILENAME=beam.zip
       script:
         - find ./ -path ./vendor -prune -o -type d | xargs chmod 755 && find ./ -name '*.php' | xargs chmod 644
+        - npm install --global cross-env
         - npm run production
         - zip -r $ZIP_FILENAME ./ -x "*.git*" -x "*.editorconfig*" -x "*.travis.yml*" -x "composer.*" -x "*.gitattributes" && mkdir $BUILD_DIR && mv $ZIP_FILENAME $BUILD_DIR/
       before_deploy:
