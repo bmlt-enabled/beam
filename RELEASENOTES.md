@@ -1,5 +1,8 @@
 # Release Notes
 
+### 0.1.2
+* Highlight deep linked post on page anchor.
+
 ### 0.1.1
 * Bundle fixes for artifact
 
