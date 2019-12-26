@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<script type="text/javascript">
+$( document ).ready(function() { $('.urlHash').val(window.location.hash); });
+</script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,8 +11,9 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="login-form" method="POST" action="{{ route('login') }}">
                         @csrf
+                        <input type="hidden" class="form-control urlHash" name="urlHash" value="">
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
