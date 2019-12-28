@@ -41,4 +41,10 @@
 
 .postHighlight {
     background-color: #ffe70a;
+    @include transition(background 3s);
+}
+
+.afterPostHighlight {
+    background-color: #00000008;
+    @include transition(background 3s);
 }

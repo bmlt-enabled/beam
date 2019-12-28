@@ -23,22 +23,26 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all()->where('parent_id', null)->sortByDesc('created_at');
+
         foreach ($posts as $post) {
             if (isset($post->beam_id))
             {
                 $post->user = BeamApi::GetUserForId($post->beam_id, $post->user_id);
                 $post->user->service_body = BeamApi::GetServiceBodyForId($post->user->service_body_id);
+                $post->owned = false;
             }
             else
             {
                 $post->user = User::findOrFail($post->user_id);
                 $post->user->service_body = BmltApi::getServiceBodyById($post->user->service_body_id);
+                $post->owned = ($post->user_id === \Auth::user()->id);
             }
 
             $post->message = $this->makeLinks(str_replace("\n", "<br/>", $post->message));
         }
 
         $comments = Post::all()->where('parent_id', !null)->sortByDesc('created_at');
+
         foreach ($comments as $comment) {
             if (isset($comment->beam_id))
             {
@@ -53,8 +57,6 @@ class PostController extends Controller
 
             $comment->message = $this->makeLinks(str_replace("\n", "<br/>", $comment->message));
         }
-
-
 
         return view('posts', ['posts' => $posts, 'comments' => $comments]);
     }

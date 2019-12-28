@@ -35,3 +35,11 @@ const app = new Vue({
 function editPost(id) {
     $("#updatePostBlock_" + id).show();
 }
+
+$(window).bind( 'hashchange', function() { highlightCard() });
+$(function() { highlightCard() });
+
+function highlightCard() {
+    $(window.location.hash + "-post-card").addClass("postHighlight");
+    setTimeout(function() { $(window.location.hash + "-post-card").addClass("afterPostHighlight") }, 4000);
+}

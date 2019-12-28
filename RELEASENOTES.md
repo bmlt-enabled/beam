@@ -1,5 +1,8 @@
 # Release Notes
 
+### 0.1.4
+* Fix for non-working deep link post highlight fade out.
+
 ### 0.1.3
 * Adding missing <div/> for post highlighting.
 

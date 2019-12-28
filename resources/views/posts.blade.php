@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<script type="text/javascript">
-    $(window).bind( 'hashchange', function() { highlightCard() });
-    $(function() { highlightCard() });
-
-    function highlightCard() {
-        $(window.location.hash + "-post-card").addClass("postHighlight");
-        $(".postHighlight").animate({"background-color": $(".card-header").css("background-color")}, 5000);
-    }
-</script>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
