@@ -1,6 +1,8 @@
 beam
 ===
 
+[![Build Status](https://travis-ci.org/bmlt-enabled/beam.svg?branch=master)](https://travis-ci.org/bmlt-enabled/beam)
+
 Beam is a self-hosted experimental project that would allow service bodies communicate both within and to other service bodies.  
 
 It also intends to serve as a source of truth for trusted servant contact information, the same principle way the BMLT handles meeting information.
